@@ -30,14 +30,14 @@ import id.co.roxas.management.ui.web.controller.BaseCtl;
 public class AuthenticationCtl extends BaseCtl {
 
 	@PutMapping("/loginOauth")
-	public ResponseEntity<Object> loginOauth(@RequestBody OauthTokenRequest oauthTokenRequest){
+	public ResponseEntity<Object> loginOauth(@RequestBody OauthTokenRequest oauthTokenRequest) throws InterruptedException{
 		Map<String, String> headerMap = new HashMap<>();
 		headerMap.put("Authorization", BASIC_OAUTH);
 		ResponseEntity<String> response = WebServiceCaller.wsBody
 				(PATH_CORE_PROJECT+"/oauth/token?username="+oauthTokenRequest.getUserId()+
 						"&password="+oauthTokenRequest.getUserPassword()
 						+"&grant_type=password", null, HttpMethod.POST, headerMap);
-		
+		//TimeUnit.MILLISECONDS.sleep(1000);
 		if(response.getStatusCode()==HttpStatus.OK) {
 			OauthTokenResponse tokenResponse = new OauthTokenResponse();
 			try {
@@ -71,13 +71,13 @@ public class AuthenticationCtl extends BaseCtl {
 			UserViolationValidation violationValidation = new UserViolationValidation();
 			violationValidation.setViolation(true);
 			header.setViolation(violationValidation);
-			TimeUnit.MILLISECONDS.sleep(1000);
+			//TimeUnit.MILLISECONDS.sleep(1000);
 			return new ResponseEntity<UserHeader>(header, HttpStatus.UNAUTHORIZED);
 		}else if(response.getStatusCode() == HttpStatus.OK) {
 			UserViolationValidation violationValidation = new UserViolationValidation();
 			violationValidation.setViolation(false);
 			header.setViolation(violationValidation);
-			TimeUnit.MILLISECONDS.sleep(1000);
+			//TimeUnit.MILLISECONDS.sleep(1000);
 			return new ResponseEntity<UserHeader>(header, HttpStatus.OK);
 		}else {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

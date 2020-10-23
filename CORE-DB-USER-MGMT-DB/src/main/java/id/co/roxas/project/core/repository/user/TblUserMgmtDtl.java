@@ -32,6 +32,9 @@ public class TblUserMgmtDtl {
 	@Column(name="userDepartmentId", nullable = false)
 	private Long userDepartmentId;
 	
+	@Column(name="userType", nullable = false)
+	private Long userType;   //---> Diambil dari table master 
+	
 	@Column(name="createdDate", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdDate;
@@ -46,8 +49,46 @@ public class TblUserMgmtDtl {
 	@Column(name="updatedBy", nullable = true)
 	private String updatedBy;
 	
-	@Column(name="userMenuId", nullable = false)
-	private Long userMenuId;
+	
+	public Long getUserType() {
+		return userType;
+	}
+
+	public void setUserType(Long userType) {
+		this.userType = userType;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public Date getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
+	}
 
 	public Long getUserDetailId() {
 		return userDetailId;
@@ -88,14 +129,5 @@ public class TblUserMgmtDtl {
 	public void setUserDepartmentId(Long userDepartmentId) {
 		this.userDepartmentId = userDepartmentId;
 	}
-
-	public Long getUserMenuId() {
-		return userMenuId;
-	}
-
-	public void setUserMenuId(Long userMenuId) {
-		this.userMenuId = userMenuId;
-	}
-	
 	
 }

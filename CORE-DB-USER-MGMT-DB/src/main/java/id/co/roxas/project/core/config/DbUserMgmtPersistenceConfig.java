@@ -27,7 +27,7 @@ public class DbUserMgmtPersistenceConfig {
 	@Bean(name = "dataSource")
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setUrl("jdbc:sqlserver://localhost;databaseName=USER_MGT_DB");
+		dataSource.setUrl("jdbc:sqlserver://localhost;databaseName=USER_MGMT_DB");
 		dataSource.setUsername("SA");
 		dataSource.setPassword("Roxas0309.");
 		return dataSource;

@@ -1,53 +1,26 @@
-package id.co.roxas.project.core.repository.user;
+package id.co.roxas.common.lib.dto.user_mgmt.user;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+public class TblUserMgmtDto {
 
-@Entity
-@Table(name="TblUserMgmt")
-public class TblUserMgmt {
-
-	@Id
-	@Column(length = 30, name = "userId")
 	private String userId;
-	
-	@Column(name = "password", nullable = false)
+
 	private String password;
-	
-	@Column(name = "errorPassword", nullable = false)
+
 	private Integer errorPassword;
-	
-	@Column(name = "isAccountActive", nullable = false)
+
 	private Boolean isAccountActive;
-	
-	@Column(name="isPasswordExpired", nullable = false)
+
 	private Boolean isPasswordExpired;
-	
-	@Column(name="createdDate", nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
+
 	private Date createdDate;
-	
-	@Column(name="createdBy", nullable = false)
 	private String createdBy;
-	
-	@Column(name="updatedDate", nullable = true)
-	@Temporal(TemporalType.TIMESTAMP)
+
 	private Date updatedDate;
-	
-	@Column(name="updatedBy", nullable = true)
 	private String updatedBy;
-	
-	@Column(name="userDetailId", nullable = false)
 	private Long userDetailId;
 
-	
-	
 	public String getUserId() {
 		return userId;
 	}
@@ -127,7 +100,5 @@ public class TblUserMgmt {
 	public void setUserDetailId(Long userDetailId) {
 		this.userDetailId = userDetailId;
 	}
-	
-	
-	
+
 }
