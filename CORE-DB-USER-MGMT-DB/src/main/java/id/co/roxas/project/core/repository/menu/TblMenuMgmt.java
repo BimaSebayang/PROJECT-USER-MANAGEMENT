@@ -27,7 +27,7 @@ public class TblMenuMgmt {
 	@Column(name="menuName", nullable = false)
 	private String menuName;
 	
-	@Column(name="urlMenu", nullable = false)
+	@Column(name="urlMenu")
 	private String urlMenu;
 	
 	@Column(name="componentMenu", nullable = false)
@@ -53,7 +53,52 @@ public class TblMenuMgmt {
 	@Column(name="updatedBy", nullable = true)
 	private String updatedBy;
 	
+	@Column(name="subMenuNumber", nullable = false)
+	private Long subMenuNumber;  //--> Put Zero Is Non Sub Menu
 	
+	@Column(name="subMenuFrom")
+	private Long subMenuFrom; //--> Put Null if Non Sub Menu
+	
+	@Column(name="isMenuActive", nullable = false)
+	private Boolean isMenuActive; //--> Put Null if Non Sub Menu
+	
+	@Column(name="menuIcon", nullable = true)
+	private String menuIcon;
+	
+	
+	
+	public String getMenuIcon() {
+		return menuIcon;
+	}
+
+	public void setMenuIcon(String menuIcon) {
+		this.menuIcon = menuIcon;
+	}
+
+	public Boolean getIsMenuActive() {
+		return isMenuActive;
+	}
+
+	public void setIsMenuActive(Boolean isMenuActive) {
+		this.isMenuActive = isMenuActive;
+	}
+
+	public Long getSubMenuNumber() {
+		return subMenuNumber;
+	}
+
+	public void setSubMenuNumber(Long subMenuNumber) {
+		this.subMenuNumber = subMenuNumber;
+	}
+
+	public Long getSubMenuFrom() {
+		return subMenuFrom;
+	}
+
+	public void setSubMenuFrom(Long subMenuFrom) {
+		this.subMenuFrom = subMenuFrom;
+	}
+
 	public String getUrlMenu() {
 		return urlMenu;
 	}

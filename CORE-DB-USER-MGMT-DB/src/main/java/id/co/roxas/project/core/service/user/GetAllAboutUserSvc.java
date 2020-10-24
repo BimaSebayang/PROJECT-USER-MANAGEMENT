@@ -7,11 +7,14 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import id.co.roxas.common.lib.dto.user_mgmt.company.TblCompanyMgmtDto;
 import id.co.roxas.common.lib.dto.user_mgmt.custom.TblUserDtlMgmtAll;
+import id.co.roxas.common.lib.dto.user_mgmt.department.TblDepartmentMgmtDto;
 import id.co.roxas.common.lib.dto.user_mgmt.master.TblMasterMgmtDto;
 import id.co.roxas.common.lib.dto.user_mgmt.user.TblUserMgmtDtlDto;
 import id.co.roxas.common.lib.dto.user_mgmt.user.TblUserMgmtDto;
 import id.co.roxas.project.core.dao.user.TblUserMgmtDao;
+import id.co.roxas.project.core.repository.department.TblDepartmentMgmt;
 import id.co.roxas.project.core.repository.master.TblMasterMgmt;
 import id.co.roxas.project.core.repository.user.TblUserMgmt;
 import id.co.roxas.project.core.repository.user.TblUserMgmtDtl;
@@ -28,13 +31,18 @@ public class GetAllAboutUserSvc extends BaseSvc{
 		tblUserMgmtDao.updateErrorPassword(userId);
 	}
 	
+	public void updateSuccessLogin(String userId) {
+		tblUserMgmtDao.updateUserLoginSuccess(userId);
+	}
+	
 	public TblUserDtlMgmtAll getAllInformationOfAUser(String userId) {
 		TblUserDtlMgmtAll tblUserDtlMgmtAll = new TblUserDtlMgmtAll();
 		
 		TblUserMgmtDto tblUserMgmtDto = new TblUserMgmtDto();
 		TblUserMgmtDtlDto tblUserMgmtDtlDto = new TblUserMgmtDtlDto();
 		TblMasterMgmtDto tblMasterMgmtDto = new TblMasterMgmtDto();
-		
+		TblDepartmentMgmtDto tblDepartmentMgmtDto = new TblDepartmentMgmtDto();
+		TblCompanyMgmtDto tblCompanyMgmtDto = new TblCompanyMgmtDto();
 //		TblUserMgmt tblUserMgmt = new TblUserMgmt();
 //		TblUserMgmtDtl tblUserMgmtDtl = new TblUserMgmtDtl();
 //		TblMasterMgmt tblMasterMgmt = new TblMasterMgmt();
@@ -45,12 +53,14 @@ public class GetAllAboutUserSvc extends BaseSvc{
 			tblUserMgmtDto = mapperFacade.map((TblUserMgmt)obj.get(0)[0], TblUserMgmtDto.class);
 			tblUserMgmtDtlDto = mapperFacade.map((TblUserMgmtDtl)obj.get(0)[1], TblUserMgmtDtlDto.class);
 			tblMasterMgmtDto = mapperFacade.map((TblMasterMgmt)obj.get(0)[2], TblMasterMgmtDto.class);
+			tblDepartmentMgmtDto = mapperFacade.map((TblDepartmentMgmt)obj.get(0)[3], TblDepartmentMgmtDto.class);
 		}
 		
 		tblUserDtlMgmtAll.setTblMasterMgmtDto(tblMasterMgmtDto);
 		tblUserDtlMgmtAll.setTblUserMgmtDtlDto(tblUserMgmtDtlDto);
 		tblUserDtlMgmtAll.setTblUserMgmtDto(tblUserMgmtDto);
-		
+		tblUserDtlMgmtAll.setTblDepartmentMgmtDto(tblDepartmentMgmtDto);
+		tblUserDtlMgmtAll.setTblCompanyMgmtDto(tblCompanyMgmtDto);
 		return tblUserDtlMgmtAll;
 	}
 	

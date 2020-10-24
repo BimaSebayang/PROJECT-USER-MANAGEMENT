@@ -27,6 +27,49 @@ public class TblMenuMgmtDto {
 	private Date updatedDate;
 	
 	private String updatedBy;
+	
+	private Long subMenuNumber;  //--> Put Zero Is Non Sub Menu
+	
+	private Long subMenuFrom; //--> Put Null if Non Sub Menu
+	
+	private Boolean isMenuActive;
+	
+	private String menuIcon;
+	
+	
+	
+
+	public String getMenuIcon() {
+		return menuIcon;
+	}
+
+	public void setMenuIcon(String menuIcon) {
+		this.menuIcon = menuIcon;
+	}
+
+	public Boolean getIsMenuActive() {
+		return isMenuActive;
+	}
+
+	public void setIsMenuActive(Boolean isMenuActive) {
+		this.isMenuActive = isMenuActive;
+	}
+
+	public Long getSubMenuNumber() {
+		return subMenuNumber;
+	}
+
+	public void setSubMenuNumber(Long subMenuNumber) {
+		this.subMenuNumber = subMenuNumber;
+	}
+
+	public Long getSubMenuFrom() {
+		return subMenuFrom;
+	}
+
+	public void setSubMenuFrom(Long subMenuFrom) {
+		this.subMenuFrom = subMenuFrom;
+	}
 
 	public Long getUserMenuId() {
 		return userMenuId;

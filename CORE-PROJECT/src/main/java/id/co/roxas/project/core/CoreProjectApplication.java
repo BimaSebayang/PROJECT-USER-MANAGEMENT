@@ -46,25 +46,18 @@ public class CoreProjectApplication {
 
 			@Override
 			public UserDetails loadUserByUsername(String userValidation) throws UsernameNotFoundException {
-				
 				String password = request.getParameter("password");
 				TblUserDtlMgmtAll userDtlMgmtAll = getAllAboutUserSvc.getAllInformationOfAUser(userValidation);
-			
-			    
 				getValidationUserDetail(getAllAboutUserSvc,userDtlMgmtAll,userValidation,password);
-				
                 System.err.println("pass nya : " + password);
 				UserDetail userDetail = new UserDetail();
-				userDetail.setUserName(userDtlMgmtAll.getTblUserMgmtDtlDto().getUserName());
+				userDetail.setUserName(userDtlMgmtAll.getTblUserMgmtDto().getUserId());
 				userDetail.setUserPassword(userDtlMgmtAll.getTblUserMgmtDto().getPassword());
 				userDetail.setAccountNonExpired(!userDtlMgmtAll.getTblUserMgmtDto().getIsPasswordExpired());
 				userDetail.setAccountNonLocked(userDtlMgmtAll.getTblUserMgmtDto().getIsAccountActive());
 				userDetail.setCredentialsNonExpired(true);
 				userDetail.setEnabled(true);
-				
-				
-				
-				
+				getAllAboutUserSvc.updateSuccessLogin(userValidation);
 				return new CustomUserService(userDetail);
 			}
 		});
@@ -119,10 +112,6 @@ public class CoreProjectApplication {
        						+ "["+code+"]", "Wrong Password", HttpStatus.UNAUTHORIZED,
        						info);
        		}
-            
-           
-       
-            
 	}
 
 }

@@ -12,11 +12,16 @@ import id.co.roxas.project.core.repository.user.TblUserMgmt;
 @Repository
 public interface TblUserMgmtDao extends JpaRepository<TblUserMgmt, String>{
 
-	@Query("select tum,tumd,tmm from TblUserMgmt tum , TblUserMgmtDtl tumd, TblMasterMgmt tmm "
+	@Query("select tum,tumd,tmm,tdm from TblUserMgmt tum , TblUserMgmtDtl tumd, TblMasterMgmt tmm, TblDepartmentMgmt tdm  "
 			+ " where tum.userDetailId = tumd.userDetailId  "
 			+ " and tmm.masterId = tumd.userType "
+			+ " and tdm.userDepartmentId  = tumd.userDepartmentId  "
 			+ " and userId = ?1")
 	public List<Object[]> getUserAllDetail(String userId);
+	
+	@Modifying
+	@Query("update TblUserMgmt set errorPassword = 0 where userId = ?1")
+	public void updateUserLoginSuccess(String userId);
 	
 	@Modifying
 	@Query(value = "update TblUserMgmt set errorPassword = " + 

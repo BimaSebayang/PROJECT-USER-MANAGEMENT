@@ -1,9 +1,21 @@
 package id.co.roxas.common.lib.user;
 
+import java.util.List;
+
 public class UserHeader {
 	private String userName;
     private String userPassword;
     private UserViolationValidation violation;
+    private Boolean menuViolation;
+    
+    
+    
+	public Boolean getMenuViolation() {
+		return menuViolation;
+	}
+	public void setMenuViolation(Boolean menuViolation) {
+		this.menuViolation = menuViolation;
+	}
 	public String getUserName() {
 		return userName;
 	}
