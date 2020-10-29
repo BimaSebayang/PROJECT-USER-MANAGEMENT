@@ -60,7 +60,8 @@ public interface TblMenuMgmtDao extends JpaRepository<TblMenuMgmt, Long>{
 			+ " and "
 			+ " tmmd.menuType = ?1 "
 			+ " and "
-			+ " tmmd.menuDepartmentId  = ?2 ")
+			+ " tmmd.menuDepartmentId  = ?2 "
+			+ " order by tmm.subMenuNumber asc")
 	public List<TblMenuMgmt> getAllAccesableMenuByItsMenuDepartmentIdAndUserType(Long menuType, 
 			Long menuDepartmentId);
 	

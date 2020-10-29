@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 
 import id.co.roxas.common.lib.dto.oauth.OauthTokenRequest;
 import id.co.roxas.common.lib.dto.oauth.OauthTokenResponse;
+import id.co.roxas.common.lib.dto.user_mgmt.menu.TblMenuMgmtDto;
 import id.co.roxas.common.lib.mapper.MapperJson;
 import id.co.roxas.common.lib.response.WebServiceCaller;
 import id.co.roxas.common.lib.user.UserHeader;
@@ -67,7 +68,16 @@ public class AuthenticationCtl extends BaseCtl {
 		headerMap.put("Authorization", "Bearer " + token);
 		ResponseEntity<String> response = WebServiceCaller.wsBody(PATH_CORE_PROJECT + "/auth/getAllMenu/ByMyAuth", null,
 				HttpMethod.GET, headerMap);
-		return new ResponseEntity<Object>(response.getBody(), response.getStatusCode());
+		
+		List<TblMenuMgmtDto> tblMenuMgmtDtos = new ArrayList<TblMenuMgmtDto>();
+		try {
+			tblMenuMgmtDtos = MapperJson.mapperJsonToListDto(response.getBody(), TblMenuMgmtDto.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		return new ResponseEntity<Object>(tblMenuMgmtDtos, response.getStatusCode());
 	}
 	
 	@GetMapping("/checkMyAuth")

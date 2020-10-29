@@ -1,5 +1,6 @@
 package id.co.roxas.project.core.controller.auth;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
+
 import id.co.roxas.common.lib.dto.user_mgmt.custom.TblUserDtlMgmtAll;
 import id.co.roxas.common.lib.dto.user_mgmt.menu.TblMenuMgmtDto;
+import id.co.roxas.common.lib.helper.DigraphSet;
+import id.co.roxas.common.lib.helper.Edge;
 import id.co.roxas.common.lib.user.UserHeader;
 import id.co.roxas.project.core.controller.BaseCtl;
 import id.co.roxas.project.core.service.menu.MenuManagementCreatorSvc;
@@ -37,6 +42,7 @@ public class AuthenticationCtl extends BaseCtl{
 		TblUserDtlMgmtAll tblUserDtlMgmtAll = getAllAboutUserSvc.getAllInformationOfAUser(authentication.getName());
 		List<TblMenuMgmtDto> tblMenuMgmtDtos = menuManagementCreatorSvc.getAllAccesableMenuByItsMenuDepartmentIdAndUserType
 				(tblUserDtlMgmtAll.getTblMasterMgmtDto().getMasterId(), tblUserDtlMgmtAll.getTblDepartmentMgmtDto().getUserDepartmentId());
+		
 		return new ResponseEntity<List<TblMenuMgmtDto>>(tblMenuMgmtDtos,HttpStatus.OK);
 	}
 	

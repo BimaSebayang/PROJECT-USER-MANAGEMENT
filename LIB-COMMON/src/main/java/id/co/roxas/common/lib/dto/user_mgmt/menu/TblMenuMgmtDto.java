@@ -1,6 +1,7 @@
 package id.co.roxas.common.lib.dto.user_mgmt.menu;
 
 import java.util.Date;
+import java.util.List;
 
 
 public class TblMenuMgmtDto {
@@ -36,8 +37,19 @@ public class TblMenuMgmtDto {
 	
 	private String menuIcon;
 	
+	private List<TblMenuMgmtDto> otherSubMenus;
 	
 	
+	
+
+
+	public List<TblMenuMgmtDto> getOtherSubMenus() {
+		return otherSubMenus;
+	}
+
+	public void setOtherSubMenus(List<TblMenuMgmtDto> otherSubMenus) {
+		this.otherSubMenus = otherSubMenus;
+	}
 
 	public String getMenuIcon() {
 		return menuIcon;
