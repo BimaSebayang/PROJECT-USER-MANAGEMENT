@@ -1,6 +1,9 @@
 package id.co.roxas.project.core.service.department;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -27,6 +30,34 @@ public class DepartmentUserMgmtCoreSvc extends BaseSvc{
 	
 	@Autowired
 	private TblDepartmentMgmtDao tblDepartmentMgmtDao;
+	
+	public ResponseEntity<Object> getDepartmentByItsDepartmentCode(String departmentCode){
+		List<Object[]> departmentMgmt = tblDepartmentMgmtDao.getDepartmentMgmtAndUserCreatorByItsCode(departmentCode);
+		if(departmentMgmt==null || departmentMgmt.size()==0) {
+			return new ResponseEntity<Object>(validationWordingCheck("Code Not Exist", "Code " + departmentCode + " Tidak Ditemukan Dalam List", 
+					50),HttpStatus.NOT_FOUND);
+		}
+		
+		Object[] thisMgmtOnlyOne = departmentMgmt.get(0);
+		Map<String, Object> deparmentMgmt = new HashMap<String, Object>();
+		deparmentMgmt.put("tblDepartmentMgmtDto", thisMgmtOnlyOne[0]);
+		deparmentMgmt.put("dibuatOleh", thisMgmtOnlyOne[1]);
+		return new ResponseEntity<Object>(successResponseCheck(deparmentMgmt, "Data Berhasil Diambil", 51), HttpStatus.OK);
+	}
+	
+	public ResponseEntity<Object> deleteDepartment(String departmentCode){
+		Integer deleteDepartment = tblDepartmentMgmtDao.deleteDepartmentMgmtByitsCode(departmentCode);
+		if(deleteDepartment!=1) {
+			return new ResponseEntity<Object>(validationWordingCheck("Delete Not Working", "Code " + departmentCode + " Tidak Dapat Dihapus", 
+					51),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		else {
+			return new ResponseEntity<Object>(successResponseCheck(deleteDepartment, "Code " + departmentCode + " Berhasil Dihapus ", 52), 
+					HttpStatus.OK);
+		}
+		
+	}
 	
 	public TblDepartmentMgmtDto saveDepartment(TblDepartmentMgmtDto departmentMgmtDto, String userSid) {
 		TblDepartmentMgmt tblDepartmentMgmt = new TblDepartmentMgmt();

@@ -7,7 +7,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -51,6 +53,11 @@ public class DepartmentMgmtCoreCtl extends BaseCtl{
 		
 	}
 	
+	@GetMapping("/getDepartmentByCode/{departmentCode}")
+	public ResponseEntity<Object> getDepartmentByCode(@PathVariable(name = "departmentCode",required = true) String departmentCode){
+		return departmentUserMgmtCoreSvc.getDepartmentByItsDepartmentCode(departmentCode);
+	}
+	
 	@PutMapping("/updateDepartment")
 	public ResponseEntity<Object> updateDepartment(@RequestBody TblDepartmentMgmtDto tblDepartmentMgmtDto, Authentication authentication){
 		ResponseEntity<Object> validity = departmentUserMgmtCoreSvc.validatorUpdate(tblDepartmentMgmtDto);
@@ -63,4 +70,8 @@ public class DepartmentMgmtCoreCtl extends BaseCtl{
 		
 	}
 	
+	@DeleteMapping("/deleteDepartment/{departmentCode}")
+	public ResponseEntity<Object> deleteDepartment(@PathVariable("departmentCode") String departmentCode, Authentication authentication){
+		return departmentUserMgmtCoreSvc.deleteDepartment(departmentCode);
+	}
 }

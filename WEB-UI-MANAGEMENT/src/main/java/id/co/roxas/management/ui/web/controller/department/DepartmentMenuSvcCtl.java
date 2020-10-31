@@ -5,7 +5,9 @@ import java.util.Map;
 
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,13 +51,34 @@ public class DepartmentMenuSvcCtl extends BaseCtl{
 		return new ResponseEntity<Object>(response.getBody(), response.getStatusCode());
 	}
 	
+
+	@GetMapping("/getDepartmentByCode/{departmentCode}")
+	public ResponseEntity<Object> getDepartmentByCode(
+			@RequestHeader("token") String token,
+			@PathVariable(name = "departmentCode",required = true) String departmentCode){
+		ResponseEntity<String> response = WebServiceCaller.wsBody
+				(PATH_CORE_PROJECT+"/departmentMgmtCoreCtl/getDepartmentByCode/"+departmentCode,
+						null, HttpMethod.GET, headerWithToken(token));
+		return new ResponseEntity<Object>(response.getBody(), response.getStatusCode());
+	}
+	
 	@PutMapping("/updateDepartment")
 	public ResponseEntity<Object> updateDepartment(@RequestHeader("token") String token,
 			@RequestBody TblDepartmentMgmtDto tblDepartmentMgmtDto
 			){
 		ResponseEntity<String> response = WebServiceCaller.wsBody
-				(PATH_CORE_PROJECT+"/departmentMgmtCoreCtl/saveDepartment",
-						tblDepartmentMgmtDto, HttpMethod.POST, headerWithToken(token));
+				(PATH_CORE_PROJECT+"/departmentMgmtCoreCtl/updateDepartment",
+						tblDepartmentMgmtDto, HttpMethod.PUT, headerWithToken(token));
+		return new ResponseEntity<Object>(response.getBody(), response.getStatusCode());
+	}
+	
+	@DeleteMapping("/deleteDepartment/{departmentCode}")
+	public ResponseEntity<Object> deleteDepartment(
+			@RequestHeader("token") String token,
+			@PathVariable("departmentCode") String departmentCode){
+		ResponseEntity<String> response = WebServiceCaller.wsBody
+				(PATH_CORE_PROJECT+"/departmentMgmtCoreCtl/deleteDepartment/"+departmentCode,
+						null, HttpMethod.DELETE, headerWithToken(token));
 		return new ResponseEntity<Object>(response.getBody(), response.getStatusCode());
 	}
 }

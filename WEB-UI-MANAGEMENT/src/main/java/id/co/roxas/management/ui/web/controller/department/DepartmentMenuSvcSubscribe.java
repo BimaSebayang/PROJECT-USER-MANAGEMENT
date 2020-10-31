@@ -14,10 +14,11 @@ import id.co.roxas.management.ui.web.controller.BaseCtl;
 public class DepartmentMenuSvcSubscribe extends BaseCtl{
 
 	  	@MessageMapping("/successTransactionDepartment")
-	    @SendTo(TOPIC+"allUser")
-	    public String sendSuccessTransactionDepartment(@Payload TblDepartmentMgmtDto message) {
+	    @SendTo(TOPIC_TRANSACTION)
+	    public String sendSuccessTransactionDepartment(@Payload Object message) {
 	  		System.err.println("payloadnya adalah " + message);
-	        return message.getCreatedBy() + " baru saja menambahkan nama department " + message.getDepartmentName();
-	    }
+	       // return message.getCreatedBy() + " baru saja menambahkan nama department " + message.getDepartmentName();
+	       return "Transaksi Berhasil";
+	  	}
 	
 }
