@@ -16,6 +16,8 @@ public abstract class MasterComponent {
 	protected static final Integer ERROR_5 = 5;
 	protected static final Integer SUCCESS_6 = 6;
 	protected static final Integer SUCCESS_7 = 7;
+	public static final String FORMAT_DATE_V1="dd/MM/yyyy HH:mm:ss";
+	public static final String TIMEZONE_V1="GMT+7";
 	
 	protected MapperFacade mapperFacade = new DefaultMapperFactory.Builder().build().getMapperFacade();
 

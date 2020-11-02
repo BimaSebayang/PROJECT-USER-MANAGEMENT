@@ -40,18 +40,25 @@ public class DepartmentUserMgmtCoreSvc extends BaseSvc{
 		
 		Object[] thisMgmtOnlyOne = departmentMgmt.get(0);
 		Map<String, Object> deparmentMgmt = new HashMap<String, Object>();
-		deparmentMgmt.put("tblDepartmentMgmtDto", thisMgmtOnlyOne[0]);
+		TblDepartmentMgmtDto departmentMgmtDto = mapperFacade.map( thisMgmtOnlyOne[0], TblDepartmentMgmtDto.class);
+		deparmentMgmt.put("tblDepartmentMgmtDto",departmentMgmtDto);
 		deparmentMgmt.put("dibuatOleh", thisMgmtOnlyOne[1]);
 		return new ResponseEntity<Object>(successResponseCheck(deparmentMgmt, "Data Berhasil Diambil", 51), HttpStatus.OK);
 	}
 	
 	public ResponseEntity<Object> deleteDepartment(String departmentCode){
+		 TblDepartmentMgmt code = tblDepartmentMgmtDao.getDepartmentMgmtByItsCode(departmentCode);
+		 if(!code.getIsDeletable()) {
+				return new ResponseEntity<Object>(validationWordingCheck("undeletable code", "Department Tidak Dapat Dihapus", 
+						54),HttpStatus.BAD_REQUEST);
+			}
+		
 		Integer deleteDepartment = tblDepartmentMgmtDao.deleteDepartmentMgmtByitsCode(departmentCode);
+		
 		if(deleteDepartment!=1) {
 			return new ResponseEntity<Object>(validationWordingCheck("Delete Not Working", "Code " + departmentCode + " Tidak Dapat Dihapus", 
 					51),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
 		else {
 			return new ResponseEntity<Object>(successResponseCheck(deleteDepartment, "Code " + departmentCode + " Berhasil Dihapus ", 52), 
 					HttpStatus.OK);
@@ -65,6 +72,8 @@ public class DepartmentUserMgmtCoreSvc extends BaseSvc{
 		tblDepartmentMgmt.setCreatedBy(userSid);
 		tblDepartmentMgmt.setCreatedDate(new Date());
 		tblDepartmentMgmt.setDepartmentCode(generateCode());
+		tblDepartmentMgmt.setIsDeletable(true);
+		tblDepartmentMgmt.setIsUpdatable(true);
 		tblDepartmentMgmtDao.save(tblDepartmentMgmt);
 		departmentMgmtDto = mapperFacade.map(tblDepartmentMgmt, TblDepartmentMgmtDto.class);
 		return departmentMgmtDto;
@@ -102,6 +111,11 @@ public class DepartmentUserMgmtCoreSvc extends BaseSvc{
 		 else if(code==null) {
 			 return new ResponseEntity<Object>(validationWordingCheck
 					   ("not null value of department", "Code Department Tidak ditemukan", 34), HttpStatus.NOT_FOUND);
+		   
+		 }
+		 else if(!code.getIsUpdatable()) {
+			 return new ResponseEntity<Object>(validationWordingCheck
+					   ("not updatable", "Department Tidak Dapat Diupdate", 35), HttpStatus.BAD_REQUEST);
 		   
 		 }
 		 else {

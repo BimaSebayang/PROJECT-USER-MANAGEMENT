@@ -1,5 +1,10 @@
 package id.co.roxas.management.ui.web;
 
+import java.util.Locale;
+import java.util.TimeZone;
+
+import javax.annotation.PostConstruct;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +19,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class WebUiManagementApplication {
 
+	  @PostConstruct
+	    void started() {
+		  Locale.setDefault(Locale.US);
+	    }
+
+	
 	public static void main(String[] args) {
 		SpringApplication.run(WebUiManagementApplication.class, args);
 	}

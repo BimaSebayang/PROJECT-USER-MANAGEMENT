@@ -11,6 +11,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import id.co.roxas.common.lib.share.MasterComponent;
+
 @Entity
 @Table(name="TblDepartmentMgmt")
 public class TblDepartmentMgmt {
@@ -39,6 +43,30 @@ public class TblDepartmentMgmt {
 	
 	@Column(name="updatedBy", nullable = true)
 	private String updatedBy;
+	
+	@Column(name="isUpdatable")
+	private Boolean isUpdatable;
+	
+	@Column(name="isDeletable")
+	private Boolean isDeletable;
+
+	
+	
+	public Boolean getIsUpdatable() {
+		return isUpdatable;
+	}
+
+	public void setIsUpdatable(Boolean isUpdatable) {
+		this.isUpdatable = isUpdatable;
+	}
+
+	public Boolean getIsDeletable() {
+		return isDeletable;
+	}
+
+	public void setIsDeletable(Boolean isDeletable) {
+		this.isDeletable = isDeletable;
+	}
 
 	public Long getUserDepartmentId() {
 		return userDepartmentId;

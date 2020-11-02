@@ -7,15 +7,22 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.google.common.base.Strings;
 
+import id.co.roxas.common.lib.dto.user_mgmt.department.TblDepartmentMgmtDto;
 import id.co.roxas.common.lib.dto.user_mgmt.menu.TblMenuMgmtDtlDto;
 import id.co.roxas.common.lib.dto.user_mgmt.menu.TblMenuMgmtDto;
+import id.co.roxas.common.lib.helper.PagingMeClz;
 import id.co.roxas.project.core.dao.user_menu.TblMenuMgmtDao;
+import id.co.roxas.project.core.lib.PagingRepositoryToDto;
+import id.co.roxas.project.core.lib.interfaces.PagingJson;
+import id.co.roxas.project.core.repository.department.TblDepartmentMgmt;
 import id.co.roxas.project.core.repository.menu.TblMenuMgmt;
 import id.co.roxas.project.core.service.BaseSvc;
 
@@ -25,6 +32,13 @@ public class MenuManagementCreatorSvc extends BaseSvc{
 
 	@Autowired
 	private TblMenuMgmtDao tblMenuMgmtDao;
+	
+	public PagingMeClz<TblMenuMgmtDto> getPage(Pageable pageable){
+		Page<TblMenuMgmt> page = tblMenuMgmtDao.getAllPageableTblMenuMgmt(pageable);
+		PagingJson<TblMenuMgmt, TblMenuMgmtDto> pagingJson = new PagingRepositoryToDto<TblMenuMgmt, TblMenuMgmtDto>();
+		pagingJson.mapperRepositoryToDto(page, TblMenuMgmtDto.class);
+		return pagingJson.printDtoInPaging();
+	} 
 	
 	public ResponseEntity<Object> searchMenuById(Long menuId) {
 		TblMenuMgmt tblMenuMgmt = tblMenuMgmtDao.getMenuMgmtByUserMenuId(menuId);

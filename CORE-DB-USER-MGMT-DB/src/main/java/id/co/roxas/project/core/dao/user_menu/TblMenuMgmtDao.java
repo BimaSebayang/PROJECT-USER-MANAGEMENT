@@ -3,6 +3,8 @@ package id.co.roxas.project.core.dao.user_menu;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -64,5 +66,8 @@ public interface TblMenuMgmtDao extends JpaRepository<TblMenuMgmt, Long>{
 			+ " order by tmm.subMenuNumber asc")
 	public List<TblMenuMgmt> getAllAccesableMenuByItsMenuDepartmentIdAndUserType(Long menuType, 
 			Long menuDepartmentId);
+	
+	@Query("select a from TblMenuMgmt a")
+	public Page<TblMenuMgmt> getAllPageableTblMenuMgmt(Pageable pageable);
 	
 }

@@ -3,10 +3,13 @@ package id.co.roxas.common.lib.dto.user_mgmt.menu;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import id.co.roxas.common.lib.share.MasterComponent;
+
 
 public class TblMenuMgmtDto {
 
-	
 	private Long userMenuId; 
 	
 	private String menuCode;
@@ -21,10 +24,11 @@ public class TblMenuMgmtDto {
 	
 	private Boolean isUpdatable;
 	
+	@JsonFormat(pattern = MasterComponent.FORMAT_DATE_V1,timezone = MasterComponent.TIMEZONE_V1)
 	private Date createdDate;
 	
 	private String createdBy;
-	
+	@JsonFormat(pattern = MasterComponent.FORMAT_DATE_V1,timezone = MasterComponent.TIMEZONE_V1)
 	private Date updatedDate;
 	
 	private String updatedBy;
@@ -38,10 +42,6 @@ public class TblMenuMgmtDto {
 	private String menuIcon;
 	
 	private List<TblMenuMgmtDto> otherSubMenus;
-	
-	
-	
-
 
 	public List<TblMenuMgmtDto> getOtherSubMenus() {
 		return otherSubMenus;

@@ -2,7 +2,9 @@ package id.co.roxas.project.core;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -33,6 +35,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableAutoConfiguration
 @EnableSwagger2
 public class CoreProjectApplication {
+	
+//	  @PostConstruct
+//	    void started() {
+//	        // set JVM timezone as UTC
+//	        TimeZone.setDefault(TimeZone.getTimeZone("UTC+7"));
+//	    }
 
 	public static void main(String[] args) {
 		SpringApplication.run(CoreProjectApplication.class, args);

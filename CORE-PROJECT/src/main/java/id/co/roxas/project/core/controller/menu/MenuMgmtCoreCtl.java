@@ -29,6 +29,17 @@ public class MenuMgmtCoreCtl extends BaseCtl {
 	@Autowired
 	private MenuManagementCreatorSvc menuManagementCreatorSvc;
 	
+	@GetMapping("/pagingListMenu")
+	public ResponseEntity<Object> pagingListDepartment(
+			@RequestParam(value = "page", required = true) Integer page,
+			@RequestParam(value = "size", required = true) Integer size,
+			@RequestParam(value = "sort", required = true) List<String> sorts
+			){
+		System.err.println("page : " + new Gson().toJson(pageableSetting(page, size, sorts)));
+		
+		return new ResponseEntity<Object>(menuManagementCreatorSvc.getPage(pageableSetting(page, size, sorts)), HttpStatus.OK);
+	}
+	
 	@PostMapping("/save")
 	public ResponseEntity<Object> saveMenuMgmtCoreCtl(@RequestBody TblMenuMgmtDto tblMenuMgmtDto, 
 							Authentication authentication){
